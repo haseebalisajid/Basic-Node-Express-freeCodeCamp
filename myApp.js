@@ -22,6 +22,8 @@ app.use((req,res,next)=>{
   next();
 });
 
+
+
 /** 4) Serve static assets  */
 app.use(express.static(__dirname + "/public"));
 app.get('/',(req,res)=>{
@@ -37,6 +39,18 @@ app.get('/json',(req,res)=>{
       message
     })
 })
+
+//* 8)Chaining a middleware. */
+app.get('/now',(req,res,next)=>{
+  req.time=new Date().toString();
+  next();
+},(req,res)=>{
+  
+  res.json({
+    time:req.time
+  })
+})
+
 
 
 
